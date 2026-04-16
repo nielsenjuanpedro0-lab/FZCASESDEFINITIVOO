@@ -13,8 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Archivos CSS -->
-    <link rel="stylesheet" href="../styles.css">
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="/admin/admin.css">
 </head>
 
 <body class="admin-login-body">
@@ -147,7 +146,7 @@
                 setTimeout(() => {
                     if (userVal === validUser && passVal === validPass) {
                         // Éxito
-                        localStorage.setItem('fzcasesAuth', 'logged-in');
+                        localStorage.setItem('admin_logged', 'true');
                         localStorage.setItem('fzcasesAuthTimestamp', Date.now());
 
                         if (rememberCheckbox.checked) {
