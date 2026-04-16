@@ -231,11 +231,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const CATEGORY_MODELS = {
-        'iPhone': ['iPhone 13', 'iPhone 13 Pro', 'iPhone 14', 'iPhone 14 Pro', 'iPhone 15', 'iPhone 15 Pro', 'iPhone 16', 'iPhone 16 Pro', 'iPhone 17 Pro Max'],
-        'MacBook': ['MacBook Air M1', 'MacBook Air M2', 'MacBook Pro 14"'],
-        'iPad': ['iPad Air', 'iPad Pro'],
-        'AirPods': ['AirPods 3', 'AirPods Pro 2'],
-        'Accesorios': ['Funda Silicone', 'Cargador Original']
+        'iPhone': [
+            'iPhone 11', 'iPhone 11 Pro', 'iPhone 11 Pro Max', 
+            'iPhone 12 Mini', 'iPhone 12', 'iPhone 12 Pro', 'iPhone 12 Pro Max', 
+            'iPhone 13 Mini', 'iPhone 13', 'iPhone 13 Pro', 'iPhone 13 Pro Max', 
+            'iPhone 14', 'iPhone 14 Plus', 'iPhone 14 Pro', 'iPhone 14 Pro Max', 
+            'iPhone 15', 'iPhone 15 Plus', 'iPhone 15 Pro', 'iPhone 15 Pro Max', 
+            'iPhone 16', 'iPhone 16 Plus', 'iPhone 16 Pro', 'iPhone 16 Pro Max'
+        ],
+        'MacBook': [
+            'MacBook Air M1', 'MacBook Air M2', 'MacBook Air M3', 
+            'MacBook Pro 13"', 'MacBook Pro 14"', 'MacBook Pro 16"',
+            'iMac 24"'
+        ],
+        'iPad': [
+            'iPad (9na Gen)', 'iPad (10ma Gen)', 
+            'iPad Mini (6ta Gen)', 
+            'iPad Air (5ta Gen)', 'iPad Air (M2)', 
+            'iPad Pro 11"', 'iPad Pro 12.9"', 'iPad Pro 13" (M4)'
+        ],
+        'AirPods': [
+            'AirPods 2', 'AirPods 3', 'AirPods 4', 
+            'AirPods Pro (1ra Gen)', 'AirPods Pro 2', 'AirPods Max'
+        ],
+        'Accesorios': [
+            'Apple Watch SE', 'Apple Watch Series 8', 'Apple Watch Series 9', 'Apple Watch Series 10', 'Apple Watch Ultra', 'Apple Watch Ultra 2',
+            'Cargador MagSafe', 'Cable Tipo C a Lightning', 'Cable Tipo C a Tipo C', 'Adaptador de corriente 20W',
+            'Funda Silicone Case', 'Funda Clear Case', 'Funda FineWoven',
+            'Apple Pencil (1ra Gen)', 'Apple Pencil (2da Gen)', 'Apple Pencil (USB-C)', 'Apple Pencil Pro'
+        ]
     };
 
     function updateModelDropdown(category) {
