@@ -96,8 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     almacenamiento: "256GB",
                     color: "Titanio Negro",
                     activo: true,
-                    imagen: "assets/iphone_case.png",
-                    images: ["assets/iphone_case.png"],
+                    imagen: "/assets/iphone_case.png",
+                    images: ["/assets/iphone_case.png"],
                     notas: "Titanio aeroespacial, Chip A17 Pro",
                     stock: 1
                 },
@@ -129,8 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     color: "Sierra Blue",
                     battery: "89",
                     activo: true,
-                    imagen: "assets/iphone_case.png",
-                    images: ["assets/iphone_case.png"],
+                    imagen: "/assets/iphone_case.png",
+                    images: ["/assets/iphone_case.png"],
                     notas: "Pantalla ProMotion 120Hz",
                     stock: 1
                 }
@@ -867,7 +867,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.logout = () => {
         localStorage.removeItem('admin_logged');
-        window.location.href = 'index.html';
+        window.location.href = '/admin/index.html';
     };
 
     // Boot
