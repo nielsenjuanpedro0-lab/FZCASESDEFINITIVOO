@@ -1742,12 +1742,17 @@ a.contact-item:hover {
         min-height: 550px;
         display: flex;
         align-items: center;
+        justify-content: center;
     }
 
     .banner-grid {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         width: 100%;
         margin: 0;
+        padding: 0;
     }
 
     .banner-visual {
@@ -1799,6 +1804,13 @@ a.contact-item:hover {
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .banner-content * {
         text-align: center;
     }
 
