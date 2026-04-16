@@ -643,7 +643,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? canjeData.funcionalidad.map(f => `- ${f}`).join('%0A')
                 : 'Ninguna';
 
-            const message = `🔄 *PLAN CANJE - Nueva Consulta*%0A%0A📱 *Modelo:* ${canjeData.modelo}%0A⭐ *Estado físico:* ${canjeData.estado}%0A%0A✅ *Funcionalidad:*%0A${funcListWA}%0A🔋 *Batería:* ${canjeData.bateria}%25%0A%0A_Solicito tasación para plan canje_`;
+            const message = `*PLAN CANJE - Nueva Consulta*%0A%0A*Modelo:* ${canjeData.modelo}%0A*Estado fisico:* ${canjeData.estado}%0A%0A*Funcionalidad:*%0A${funcListWA}%0A*Bateria:* ${canjeData.bateria}%25%0A%0A_Solicito tasacion para plan canje_`;
             
             // WA Default test number
             const waNumber = '1123456789'; // Esto se deberá cambiar por global_W_NUMBER si existiera
