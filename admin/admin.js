@@ -66,23 +66,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     let memorySales = [];
 
     async function fetchData() {
-        // Cargar Productos
-        const { data: products, error: pError } = await _supabase
-            .from('products')
-            .select('*')
-            .order('created_at', { ascending: false });
+        try {
+            // Cargar Productos
+            const { data: products, error: pError } = await _supabase
+                .from('products')
+                .select('*')
+                .order('created_at', { ascending: false });
 
-        if (!pError) memoryProducts = products;
+            if (!pError) memoryProducts = products;
 
-        // Cargar Ventas
-        const { data: sales, error: sError } = await _supabase
-            .from('sales')
-            .select('*')
-            .order('fecha', { ascending: false });
+            // Cargar Ventas
+            const { data: sales, error: sError } = await _supabase
+                .from('sales')
+                .select('*')
+                .order('fecha', { ascending: false });
 
-        if (!sError) memorySales = sales;
-
-        initRenders();
+            if (!sError) memorySales = sales;
+        } catch (e) {
+            console.error("Error cargando datos:", e);
+        } finally {
+            initRenders();
+        }
     }
 
     // Llamada inicial a la base de datos
@@ -274,19 +278,16 @@ ucts));
     // ==============================================================================
 
     const navItems = document.querySelectorAll('.nav-item');
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const panels = document.querySelectorAll('.tab-content'); // Cambiamos a capturar los tab-contents
+    const panels = document.querySelectorAll('.tab-content');
     const mainTitle = document.getElementById('main-title');
 
     function switchTab(targetId, TitleName) {
-        // Ocultar todos
         panels.forEach(p => {
             p.style.display = 'none';
             p.classList.remove('active');
         });
         navItems.forEach(n => n.classList.remove('active'));
 
-        // Activar correspondientes
         const targetPanel = document.getElementById(targetId);
         if (targetPanel) {
             targetPanel.style.display = 'block';
@@ -294,17 +295,17 @@ ucts));
         }
 
         document.querySelectorAll(`.nav-item[data-target="${targetId}"]`).forEach(el => el.classList.add('active'));
+        if (mainTitle) mainTitle.textContent = TitleName;
 
-        mainTitle.textContent = TitleName;
-
-        // Cierra sidebar si es mobile
         document.getElementById('admin-sidebar').classList.remove('open');
-        document.getElementById('sidebar-overlay').classList.remove('show');
+        const overlay = document.getElementById('sidebar-overlay');
+        if (overlay) overlay.classList.remove('show');
     }
 
     navItems.forEach(item => {
         item.addEventListener('click', () => {
-            switchTab(item.dataset.target, item.querySelector('.nav-text').textContent);
+            const navText = item.querySelector('.nav-text');
+            switchTab(item.dataset.target, navText ? navText.textContent : 'Panel');
         });
     });
 
