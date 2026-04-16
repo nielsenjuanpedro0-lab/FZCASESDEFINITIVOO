@@ -1,0 +1,90 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. NAVEGACIÓN (Funciona aunque falle Supabase)
+    window.switchTab = function(targetId, TitleName) {
+        const panels = document.querySelectorAll('.tab-content');
+        const navItems = document.querySelectorAll('.nav-item');
+        const mainTitle = document.getElementById('main-title');
+
+        panels.forEach(p => { 
+            p.style.display = 'none'; 
+            p.classList.remove('active'); 
+        });
+        navItems.forEach(n => n.classList.remove('active'));
+
+        const targetPanel = document.getElementById(targetId);
+        if (targetPanel) {
+            targetPanel.style.display = 'block';
+            targetPanel.classList.add('active');
+        }
+
+        document.querySelectorAll(`.nav-item[data-target="${targetId}"]`).forEach(el => el.classList.add('active'));
+        if (mainTitle && TitleName) mainTitle.textContent = TitleName;
+
+        const sidebar = document.getElementById('admin-sidebar');
+        if (sidebar) sidebar.classList.remove('open');
+    };
+
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const navText = item.querySelector('.nav-text');
+            window.switchTab(item.dataset.target, navText ? navText.textContent : 'Panel');
+        });
+    });
+
+    // 2. CONFIGURACIÓN SUPABASE
+    const SUPABASE_URL = 'https://sypleinfsemauzjcxxrx.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN5cGxlaW5mc2VtYXV6amN4eHJ4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzMzExODYsImV4cCI6MjA5MTkwNzE4Nn0.p_EvcoFKwZ38HTvHK28NtlK573jVG2suR0OX17GA_IE';
+    let _supabase;
+
+    try {
+        _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    } catch (e) {
+        console.error("Error al conectar con Supabase:", e);
+    }
+
+    // 3. FECHA Y HORA HEADER
+    const mainSubtitle = document.getElementById('main-subtitle');
+    if (mainSubtitle) {
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        mainSubtitle.textContent = new Date().toLocaleDateString('es-AR', options);
+    }
+
+    // 4. CARGA DE DATOS
+    let memoryProducts = [];
+    let memorySales = [];
+
+    async function fetchData() {
+        if (!_supabase) return;
+        try {
+            const { data: products } = await _supabase.from('products').select('*').order('created_at', { ascending: false });
+            if (products) memoryProducts = products;
+
+            const { data: sales } = await _supabase.from('sales').select('*').order('fecha', { ascending: false });
+            if (sales) memorySales = sales;
+        } catch (e) {
+            console.error("Fallo al traer datos:", e);
+        } finally {
+            initRenders();
+        }
+    }
+
+    fetchData();
+
+    // Re-bind de funciones que se perdieron
+    window.customConfirm = (config) => {
+        return new Promise((resolve) => {
+            const modal = document.getElementById('modal-confirm');
+            if (!modal) return resolve(confirm(config.message));
+            document.getElementById('confirm-title').textContent = config.title || "¿Estás seguro?";
+            document.getElementById('confirm-message').textContent = config.message;
+            modal.classList.remove('hidden');
+            const onOk = () => { modal.classList.add('hidden'); resolve(true); };
+            const onCancel = () => { modal.classList.add('hidden'); resolve(false); };
+            document.getElementById('btn-confirm-ok').onclick = onOk;
+            document.getElementById('btn-confirm-cancel').onclick = onCancel;
+        });
+    };
+
+    // ... (El resto del código de renderProductos, canjes, etc, se mantiene igual)
+});
