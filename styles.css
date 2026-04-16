@@ -1816,11 +1816,13 @@ a.contact-item:hover {
     }
 
     .banner-bullets {
+        display: inline-flex;
+        flex-direction: column;
         align-items: flex-start;
         text-align: left;
-        width: fit-content;
-        margin-left: auto;
-        margin-right: auto;
+        width: max-content;
+        max-width: 100%;
+        margin: 0 auto;
         padding: 0;
     }
 
